@@ -2,9 +2,9 @@
 # Documentation
 Library     Browser
 Library     OperatingSystem
-Library     ImageHorizonLibrary         reference_folder=img            keyword_on_failure=No Operation
+Library     ImageHorizonLibrary         reference_folder=img\\de            keyword_on_failure=No Operation
 Library     String
-Library     Collections
+Library     keys.py
 # Resource
 # Suite Setup
 # Suite Teardown
@@ -15,9 +15,10 @@ Library     Collections
 ${codeURL}          https://incendar.com/idlechampions_codes.php
 ${cookiesAccept}    //*[@id="ncmp__tool"]/div/div/div[3]/div[1]/button[2]
 ${codeList}         //*[@id="123"]
+${smallCode}        14
+${largeCode}        19
 
 *** Keywords ***
-# Documentation
 
 Read Codes To List
     New Page            ${codeURL}
@@ -26,24 +27,68 @@ Read Codes To List
     ${codes}            Get Text            ${codeList}
     @{codesAsList}      Split To Lines      ${codes}
     Set Task Variable   @{codesAsList}
-Open Locked Chest Interface
-    Click Image         chestInventory.png
+
+Setup Codes
+    Read Codes To List
+    Wait Until Keyword Succeeds    10x    100ms    Click Image         chestInventory.png
     Sleep               1s
     Click Image         enterCode.png
     Sleep               1s
 
-Input Codes
-    FOR    ${element}    IN    @{codesAsList}
-        # use element to input code
+Input All Codes
+    FOR    ${code}    IN    @{codesAsList}
+        ${size}    Get Length    ${code}
+        Input Code    ${code}  ${size}
     END
 
-*** Tasks ***
-# Documentation
-# Tags
-# Setup
-# Teardown
+Set To Code Size
+    [Arguments]    ${size}
+    IF  ${size} == ${smallCode}
+        ${fit}     Run Keyword And Return Status
+        ...        ImageHorizonLibrary.Wait For    large.png
+        IF    ${fit} == ${False}
+                   Click Image                     small.png
+        END
+    ELSE
+        ${fit}     Run Keyword And Return Status
+        ...        ImageHorizonLibrary.Wait For    small.png
+        IF    ${fit} == ${False}
+                   Click Image                     large.png
+        END
+    END
 
-Test
-    Read Codes To List
-    #Open Locked Chest Interface
-    Input Codes
+Cancel Code Input
+    Click Image     ok.png
+    Sleep           1s
+    Send Keys       esc
+
+Input Code
+    [Arguments]         ${code}                         ${size}
+    Set To Code Size    ${size}
+    Type                ${code}
+    Click Image         unlock.png
+    ${already}          Run Keyword And Return Status
+    ...                 ImageHorizonLibrary.Wait For    already.png
+    IF                  ${already} == ${True}
+                        Cancel Code Input
+    END
+    ${expired}          Run Keyword And Return Status
+    ...                 ImageHorizonLibrary.Wait For    expired.png
+    IF                  ${expired} == ${True}
+                        Cancel Code Input
+    END
+    ${invalid}          Run Keyword And Return Status
+    ...                 ImageHorizonLibrary.Wait For    invalid.png
+    IF                  ${invalid} == ${True}
+                        Cancel Code Input
+    END
+    IF  ${already} == ${False} and ${expired} == ${False} and ${invalid} == ${False}
+        Wait Until Keyword Succeeds    10x    100ms    Click Image  flip.png
+    END
+    Wait Until Keyword Succeeds    10x    100ms    Click Image  enterCode.png
+    Sleep               1s
+
+*** Tasks ***
+Update Codes
+    [Setup]    Setup Codes
+    Input All Codes
