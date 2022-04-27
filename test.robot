@@ -44,14 +44,12 @@ Input All Codes
 Set To Code Size
     [Arguments]    ${size}
     IF  ${size} == ${smallCode}
-        ${fit}     Run Keyword And Return Status
-        ...        ImageHorizonLibrary.Wait For    large.png
+        ${fit}    Does Exist                    large.png
         IF    ${fit} == ${False}
                    Click Image                     small.png
         END
     ELSE
-        ${fit}     Run Keyword And Return Status
-        ...        ImageHorizonLibrary.Wait For    small.png
+        ${fit}        Does Exist                        small.png
         IF    ${fit} == ${False}
                    Click Image                     large.png
         END
@@ -64,29 +62,29 @@ Cancel Code Input
 
 Input Code
     [Arguments]         ${code}                         ${size}
-    Set To Code Size    ${size}
+    Wait Until Keyword Succeeds    10x    100ms    Set To Code Size    ${size}
     Type                ${code}
     Click Image         unlock.png
     ${already}          Run Keyword And Return Status
-    ...                 ImageHorizonLibrary.Wait For    already.png
+    ...                 ImageHorizonLibrary.Wait For    already.png  1
+    ${expired}          Run Keyword And Return Status
+    ...                 ImageHorizonLibrary.Wait For    expired.png  1
+    ${invalid}          Run Keyword And Return Status
+    ...                 ImageHorizonLibrary.Wait For    invalid.png  1
     IF                  ${already} == ${True}
                         Cancel Code Input
     END
-    ${expired}          Run Keyword And Return Status
-    ...                 ImageHorizonLibrary.Wait For    expired.png
     IF                  ${expired} == ${True}
                         Cancel Code Input
     END
-    ${invalid}          Run Keyword And Return Status
-    ...                 ImageHorizonLibrary.Wait For    invalid.png
     IF                  ${invalid} == ${True}
                         Cancel Code Input
     END
     IF  ${already} == ${False} and ${expired} == ${False} and ${invalid} == ${False}
         Wait Until Keyword Succeeds    10x    100ms    Click Image  flip.png
+        Wait Until Keyword Succeeds    10x    100ms    Click Image  done.png
     END
     Wait Until Keyword Succeeds    10x    100ms    Click Image  enterCode.png
-    Sleep               1s
 
 *** Tasks ***
 Update Codes
