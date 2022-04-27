@@ -2,7 +2,7 @@
 # Documentation
 Library     Browser
 Library     OperatingSystem
-Library     ImageHorizonLibrary         reference_folder=img\\de            keyword_on_failure=No Operation
+Library     ImageHorizonLibrary  reference_folder=img\\de  keyword_on_failure=No Operation  confidence=0.8
 Library     String
 Library     keys.py
 # Resource
@@ -87,6 +87,6 @@ Input Code
     Wait Until Keyword Succeeds    10x    100ms    Click Image  enterCode.png
 
 *** Tasks ***
-Update Codes
+Use Codes
     [Setup]    Setup Codes
     Input All Codes
