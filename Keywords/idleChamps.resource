@@ -3,7 +3,7 @@ Documentation     Resource file containing all keywords used in Tasks.
 Library           Browser
 Library           OperatingSystem
 Library           String
-Library           keys.py
+Library           Python/keys.py
 Library           ImageHorizonLibrary    reference_folder=resource\\img\\${LANGUAGE}
 ...               keyword_on_failure=No Operation
 ...               confidence=0.95

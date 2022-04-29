@@ -1,4 +1,3 @@
 result/*
-__pycache__/*
-Keywords/__pycache__/*
+Keywords/Python/__pycache__/*
 resource/txt/usedCodes.txt
