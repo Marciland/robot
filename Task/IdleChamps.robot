@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Tasks for idle champions
-Resource          keywords.resource
+Resource          ../Keywords/idleChamps.resource
 
 *** Variables ***
 ${LANGUAGE}       de
