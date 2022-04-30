@@ -8,4 +8,4 @@ def run(variable, suite):
 if __name__ == "__main__":
     variable = str(sys.argv[1])
     suite = str(sys.argv[2])
-    run(language, suite)
+    run(variable, suite)
