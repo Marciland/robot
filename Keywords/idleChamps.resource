@@ -4,7 +4,7 @@ Library           Browser
 Library           OperatingSystem
 Library           String
 Library           Python/keys.py
-Library           ImageHorizonLibrary    reference_folder=resource\\img\\${LANGUAGE}
+Library           ImageHorizonLibrary    reference_folder=resource/img/idleChamps/${LANGUAGE}    screenshot_folder=result/
 ...               keyword_on_failure=No Operation
 ...               confidence=0.95
 Library           Collections
