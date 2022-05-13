@@ -23,6 +23,7 @@ Read Codes From Website
     Browser.Click    ${cookiesAccept}
     Scroll To    vertical=bottom
     ${codes}    Get Text    ${codeList}
+    ${codes}    Remove String    ${codes}    ${SPACE}
     @{codesList}    Split To Lines    ${codes}
     Set Task Variable    @{codesList}
 
@@ -59,16 +60,16 @@ Input All Codes
 
 Set To Code Size
     [Arguments]    ${size}
-    IF    ${size} == ${smallCode}
-        ${fit}    Does Exist    large.png
-        IF    ${fit} == ${False}
-            Click Image    small.png
-        END
-    ELSE
-        ${fit}    Does Exist    small.png
-        IF    ${fit} == ${False}
-            Click Image    large.png
-        END
+    IF    ${size} != ${smallCode} and ${size} != ${largeCode}
+        Fail    msg="${size} incorrect"
+    END
+    ${large}    Does Exist    large.png
+    ${small}    Does Exist    small.png
+    IF    ${size} == ${smallCode} and ${small} == ${True}
+        Click Image    small.png
+    END
+    IF    ${size} == ${largeCode} and ${large} == ${True}
+        Click Image    large.png
     END
 
 Write Used Code
