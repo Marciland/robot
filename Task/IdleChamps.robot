@@ -7,5 +7,5 @@ ${LANGUAGE}       de
 
 *** Tasks ***
 Use Codes
-    [Setup]    Gather Codes And Enter ChestInventory
+    [Setup]    Gather Codes
     Input All Codes

@@ -47,6 +47,9 @@ Compare Codes
     END
     Set Task Variable    @{codesList}
 
+Gather Codes
+    Compare Codes
+
 Gather Codes And Enter ChestInventory
     Compare Codes
     Wait Until Keyword Succeeds    10x    100ms    Click Image    chestInventory.png
@@ -90,7 +93,7 @@ Input Code
     [Arguments]    ${code}    ${size}
     Wait Until Keyword Succeeds    10x    100ms    Click Image    cryptex.png
     Wait Until Keyword Succeeds    10x    100ms    Set To Code Size    ${size}
-    Type    ${code}
+    Send Keys    ${code}
     Wait Until Keyword Succeeds    10x    100ms    Click Image    unlock.png
     ${already}    Run Keyword And Return Status
     ...    ImageHorizonLibrary.Wait For    already.png    1
