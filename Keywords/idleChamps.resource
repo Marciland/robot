@@ -93,7 +93,8 @@ Input Code
     [Arguments]    ${code}    ${size}
     Wait Until Keyword Succeeds    10x    100ms    Click Image    cryptex.png
     Wait Until Keyword Succeeds    10x    100ms    Set To Code Size    ${size}
-    Send Keys    ${code}
+    keys.Copy    ${code}
+    Wait Until Keyword Succeeds    10x    100ms    Click Image    clipboard.png
     Wait Until Keyword Succeeds    10x    100ms    Click Image    unlock.png
     ${already}    Run Keyword And Return Status
     ...    ImageHorizonLibrary.Wait For    already.png    1
