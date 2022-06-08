@@ -90,8 +90,8 @@ Collect Loot
 
 Input Code
     [Arguments]    ${code}    ${size}
-    Wait Until Keyword Succeeds    10x    100ms    Set To Code Size    ${size}
     keys.Copy    ${code}
+    Wait Until Keyword Succeeds    10x    100ms    Set To Code Size    ${size}
     Wait Until Keyword Succeeds    10x    100ms    Click Image    clipboard.png
     Wait Until Keyword Succeeds    10x    100ms    Click Image    unlock.png
     ${expired}    Run Keyword And Return Status
