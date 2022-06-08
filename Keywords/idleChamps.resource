@@ -94,16 +94,25 @@ Input Code
     keys.Copy    ${code}
     Wait Until Keyword Succeeds    10x    100ms    Click Image    clipboard.png
     Wait Until Keyword Succeeds    10x    100ms    Click Image    unlock.png
-    ${already}    Run Keyword And Return Status
-    ...    ImageHorizonLibrary.Wait For    already.png    1
     ${expired}    Run Keyword And Return Status
     ...    ImageHorizonLibrary.Wait For    expired.png    1
+    IF    ${expired} == ${True}
+        Write Used Code    ${code}
+        Return From Keyword
+    END
+    ${already}    Run Keyword And Return Status
+    ...    ImageHorizonLibrary.Wait For    already.png    1
+    IF    ${already} == ${True}
+        Write Used Code    ${code}
+        Return From Keyword
+    END
     ${invalid}    Run Keyword And Return Status
     ...    ImageHorizonLibrary.Wait For    invalid.png    1
     IF    ${invalid} == ${True}
         Cancel Code Input
-    ELSE IF    ${expired} == ${True} or ${already} == ${True}
-        Write Used Code    ${code}
-    ELSE IF    ${already} == ${False} and ${expired} == ${False} and ${invalid} == ${False}
+        Return From Keyword
+    END
+    IF    ${already} == ${False} and ${expired} == ${False} and ${invalid} == ${False}
         Collect Loot
+        Return From Keyword
     END
