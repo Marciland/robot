@@ -82,16 +82,14 @@ Write Used Code
 
 Cancel Code Input
     Click Image    ok.png
-    Sleep    1s
-    Send Keys    esc
 
 Collect Loot
     Wait Until Keyword Succeeds    10x    100ms    Click Image    flip.png
     Wait Until Keyword Succeeds    10x    100ms    Click Image    done.png
+    Wait Until Keyword Succeeds    10x    100ms    Click Image    cryptex.png
 
 Input Code
     [Arguments]    ${code}    ${size}
-    Wait Until Keyword Succeeds    10x    100ms    Click Image    cryptex.png
     Wait Until Keyword Succeeds    10x    100ms    Set To Code Size    ${size}
     keys.Copy    ${code}
     Wait Until Keyword Succeeds    10x    100ms    Click Image    clipboard.png
